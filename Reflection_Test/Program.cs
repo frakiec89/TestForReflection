@@ -25,10 +25,26 @@ namespace Reflection_Test
             }
 
             Type pr = types[0];
+            Type user = types[1];
 
             // создаем экземпляр класса Program
-            object obj = Activator.CreateInstance(pr);
-            
+            object programObj = Activator.CreateInstance(pr);
+
+            // создаем экземпляр класса Program
+            FieldInfo[] fi = pr.GetFields(BindingFlags.Instance
+                                | BindingFlags.Static
+                                | BindingFlags.NonPublic);
+
+
+            foreach (var item in fi)
+            {
+                Console.WriteLine(item);
+            }
+
+
+
+
+
             Console.WriteLine("напишите  \'да\' чтобы зайти  через ввод пароля");
 
             Console.WriteLine("если  хотите  обойти  ввод  пароля напишите \'РЕФЛЕКСИЯ\'");
@@ -40,15 +56,19 @@ namespace Reflection_Test
                 // вызов метода  мейн 
                 MethodInfo method = pr.GetMethod("Main", BindingFlags.DeclaredOnly
         |       BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static);
-                method.Invoke(obj, new object[] { new string[] { } });
+                method.Invoke(programObj, new object[] { new string[] { } });
             }
 
             if (temp == "рефлексия")
             {
                 MethodInfo method = pr.GetMethod("GetStart", BindingFlags.DeclaredOnly |
                 BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Static);
-                method.Invoke(obj, null);
+                method.Invoke(programObj, null);
             }
+
+            
+
+
         }
     }
 }

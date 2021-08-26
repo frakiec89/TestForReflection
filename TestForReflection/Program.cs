@@ -4,9 +4,9 @@ namespace TestForReflection
 {
     class Program
     {
+        static User user = new User("Ivan", "admin", "123");
         static void Main(string[] args)
         {
-            User user = new User("Ivan", "admin", "123");
             while(true)
             {
                 Console.WriteLine("Введите пароль");
